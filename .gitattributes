@@ -1,0 +1,9 @@
+# Padronizar finais de linha
+* text=auto eol=lf
+
+# Scripts de shell sempre LF
+*.sh text eol=lf
+
+# Arquivos do Windows (se algum .bat ou .ps1) ficam em CRLF
+*.bat text eol=crlf
+*.ps1 text eol=crlf
