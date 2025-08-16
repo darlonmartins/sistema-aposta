@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://SEU-BACKEND.onrender.com/api/$1" }
+    { "source": "/api/(.*)", "destination": "https://sistema-apostas.onrender.com/api/$1" }
   ]
 }
