@@ -1,19 +1,17 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: apostas-db
+    image: postgres:16
+    container_name: apostas-pg
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: apostas
-      MYSQL_USER: apostas_user
-      MYSQL_PASSWORD: apostas_pass
+      POSTGRES_DB: apostas
+      POSTGRES_USER: apostas_user
+      POSTGRES_PASSWORD: apostas_pass
       TZ: America/Sao_Paulo
     volumes:
-      - db_data:/var/lib/mysql
-    command: ["--default-authentication-plugin=mysql_native_password"]
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uapostas_user", "-papostas_pass"]
+      test: ["CMD-SHELL", "pg_isready -U apostas_user -d apostas"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -27,12 +25,20 @@ services:
         condition: service_healthy
     environment:
       FLASK_ENV: development
-      DATABASE_URL: mysql+pymysql://apostas_user:apostas_pass@db:3306/apostas
+      DATABASE_URL: postgresql+psycopg2://apostas_user:apostas_pass@db:5432/apostas
       TZ: America/Sao_Paulo
     ports:
       - "5000:5000"
     volumes:
       - .:/app
 
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
 volumes:
-  db_data:
+  pg_data:
