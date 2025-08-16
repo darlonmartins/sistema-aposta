@@ -1,0 +1,65 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# === Envs / Secrets ===
+.env
+*.env
+
+# === Logs ===
+*.log
+*.out
+*.err
+
+# === Databases locais (SQLite) ===
+*.db
+*.sqlite3
+src/database/*.db
+
+# === IDEs ===
+.vscode/
+.idea/
+*.swp
+*~
+
+# === Docker ===
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
+# === Build / Distribuição ===
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# === Outros ===
+.DS_Store
+Thumbs.db
