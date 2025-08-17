@@ -136,6 +136,40 @@ body {
     display: none !important;
 }
 
+/* --- TOAST --- */
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  min-width: 260px;
+  max-width: 420px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  color: #0f172a; /* slate-900 */
+  background: #ecfeff; /* success default (cyan-50) */
+  border: 1px solid #06b6d4; /* cyan-500 */
+  font: 500 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast.success {
+  background: #ecfeff;
+  border-color: #06b6d4; /* cyan */
+}
+.toast.error {
+  background: #fef2f2;
+  border-color: #ef4444; /* red */
+  color: #7f1d1d;
+}
+.hidden { display: none; }
+
 /* Main Screen */
 .navbar {
     background: white;

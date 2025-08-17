@@ -28,6 +28,31 @@ function formatDate(dateString) {
   return date.toLocaleDateString('pt-BR');
 }
 
+// --- TOAST ---
+let toastTimer;
+function showToast(message, type = 'success', duration = 2500) {
+  const toast = document.getElementById('toast');
+  const text = document.getElementById('toast-text');
+  if (!toast || !text) return console.log(message);
+
+  text.textContent = message;
+  toast.classList.remove('hidden', 'success', 'error', 'show');
+  toast.classList.add(type);
+
+  // força reflow para aplicar transição
+  void toast.offsetWidth;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => hideToast(), duration);
+}
+function hideToast() {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.classList.remove('show');
+  setTimeout(() => toast.classList.add('hidden'), 200);
+}
+
 // =======================
 // Inicialização
 // =======================
@@ -43,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('odd').addEventListener('input', calculateTotalPrevisto);
   document.getElementById('editEntrada').addEventListener('input', calculateEditTotalPrevisto);
   document.getElementById('editOdd').addEventListener('input', calculateEditTotalPrevisto);
+
+  // clique fecha o toast
+  document.getElementById('toast')?.addEventListener('click', hideToast);
 
   // Data padrão = hoje
   const today = new Date().toISOString().split('T')[0];
@@ -78,15 +106,16 @@ async function handleLogin(e) {
 
     if (res.ok) {
       currentUser = data.user;
+      showToast('Login realizado com sucesso!', 'success');
       showMainScreen();
       loadDashboard();
       loadApostas();
     } else {
-      alert(data.error || data.text || 'Erro no login');
+      showToast(data.error || data.text || 'Erro no login', 'error', 3500);
     }
   } catch (err) {
     console.error(err);
-    alert('Erro de conexão');
+    showToast('Erro de conexão', 'error', 3500);
   }
 }
 
@@ -108,15 +137,15 @@ async function handleRegister(e) {
     const data = await parseResponse(res);
 
     if (res.ok) {
-      alert('Usuário criado com sucesso! Faça login.');
-      showLogin();
+      showToast('Usuário criado com sucesso! Faça login.', 'success');
+      showLogin(); // muda para a aba "Entrar"
       document.getElementById('registerForm').reset();
     } else {
-      alert(data.error || data.text || 'Erro no registro');
+      showToast(data.error || data.text || 'Erro no registro', 'error', 3500);
     }
   } catch (err) {
     console.error(err);
-    alert('Erro de conexão');
+    showToast('Erro de conexão', 'error', 3500);
   }
 }
 
@@ -128,6 +157,7 @@ async function logout() {
   } finally {
     currentUser = null;
     showLoginScreen();
+    showToast('Você saiu da aplicação.', 'success');
   }
 }
 
@@ -205,12 +235,13 @@ async function handleAddAposta(e) {
       hideAddForm();
       loadApostas();
       loadDashboard();
+      showToast('Aposta cadastrada com sucesso!', 'success');
     } else {
-      alert(out.error || out.text || 'Erro ao salvar aposta');
+      showToast(out.error || out.text || 'Erro ao salvar aposta', 'error', 3500);
     }
   } catch (err) {
     console.error(err);
-    alert('Erro de conexão');
+    showToast('Erro de conexão', 'error', 3500);
   }
 }
 
@@ -239,12 +270,13 @@ async function handleEditAposta(e) {
       closeEditModal();
       loadApostas();
       loadDashboard();
+      showToast('Aposta atualizada com sucesso!', 'success');
     } else {
-      alert(out.error || out.text || 'Erro ao atualizar aposta');
+      showToast(out.error || out.text || 'Erro ao atualizar aposta', 'error', 3500);
     }
   } catch (err) {
     console.error(err);
-    alert('Erro de conexão');
+    showToast('Erro de conexão', 'error', 3500);
   }
 }
 
@@ -262,12 +294,13 @@ async function deleteAposta(id) {
     if (res.ok) {
       loadApostas();
       loadDashboard();
+      showToast('Aposta excluída com sucesso!', 'success');
     } else {
-      alert(out.error || out.text || 'Erro ao excluir aposta');
+      showToast(out.error || out.text || 'Erro ao excluir aposta', 'error', 3500);
     }
   } catch (err) {
     console.error(err);
-    alert('Erro de conexão');
+    showToast('Erro de conexão', 'error', 3500);
   }
 }
 
@@ -397,5 +430,5 @@ function calculateEditTotalPrevisto() {
 // Teste simples para verificar se o proxy do Vercel → Render está funcionando
 fetch('/api/health')
   .then(r => r.json())
-  .then(data => console.log("Resposta do backend:", data))
-  .catch(err => console.error("Erro ao acessar /api/health:", err));
+  .then(data => console.log('Resposta do backend:', data))
+  .catch(err => console.error('Erro ao acessar /api/health:', err));
