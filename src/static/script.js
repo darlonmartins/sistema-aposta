@@ -157,7 +157,7 @@ async function logout() {
   } finally {
     currentUser = null;
     showLoginScreen();
-    showToast('Você saiu da aplicação.', 'success');
+    showToast('Você saiu do sistema.', 'success');
   }
 }
 
