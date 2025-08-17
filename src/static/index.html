@@ -14,218 +14,224 @@
   <link rel="stylesheet" href="styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 </head>
+
 <body>
-  <!-- Tela de Login -->
-  <div id="loginScreen" class="screen active">
-    <div class="login-container">
-      <div class="login-card">
-        <div class="login-header">
-          <i class="fas fa-dice"></i>
-          <h1>Sistema de Apostas</h1>
-          <p>Gerencie suas apostas de forma inteligente</p>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Sistema de Apostas</h1>
+                    <p>Gerencie suas apostas de forma inteligente</p>
+                </div>
+
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="showLogin()">Entrar</button>
+                    <button class="tab-btn" onclick="showRegister()">Registrar</button>
+                </div>
+
+                <!-- Formulário de Login -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginUsername">Usuário</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Entrar
+                    </button>
+                </form>
+
+                <!-- Formulário de Registro -->
+                <form id="registerForm" class="auth-form hidden">
+                    <div class="form-group">
+                        <label for="registerUsername">Usuário</label>
+                        <input type="text" id="registerUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Registrar
+                    </button>
+                </form>
+            </div>
         </div>
-
-        <div class="login-tabs">
-          <button class="tab-btn active" onclick="showLogin()">Entrar</button>
-          <button class="tab-btn" onclick="showRegister()">Registrar</button>
-        </div>
-
-        <!-- Formulário de Login -->
-        <form id="loginForm" class="auth-form">
-          <div class="form-group">
-            <label for="loginUsername">Usuário</label>
-            <input type="text" id="loginUsername" required />
-          </div>
-          <div class="form-group">
-            <label for="loginPassword">Senha</label>
-            <input type="password" id="loginPassword" required />
-          </div>
-          <button type="submit" class="btn-primary">
-            <i class="fas fa-sign-in-alt"></i>
-            Entrar
-          </button>
-        </form>
-
-        <!-- Formulário de Registro -->
-        <form id="registerForm" class="auth-form hidden">
-          <div class="form-group">
-            <label for="registerUsername">Usuário</label>
-            <input type="text" id="registerUsername" required />
-          </div>
-          <div class="form-group">
-            <label for="registerEmail">Email</label>
-            <input type="email" id="registerEmail" required />
-          </div>
-          <div class="form-group">
-            <label for="registerPassword">Senha</label>
-            <input type="password" id="registerPassword" required />
-          </div>
-          <button type="submit" class="btn-primary">
-            <i class="fas fa-user-plus"></i>
-            Registrar
-          </button>
-        </form>
-      </div>
     </div>
-  </div>
 
-  <!-- Tela Principal -->
-  <div id="mainScreen" class="screen">
-    <nav class="navbar">
-      <div class="nav-brand">
-        <i class="fas fa-dice"></i>
-        <span>Sistema de Apostas</span>
-      </div>
-      <div class="nav-user">
-        <span id="userName">Usuário</span>
-        <button onclick="logout()" class="btn-logout">
-          <i class="fas fa-sign-out-alt"></i>
-        </button>
-      </div>
-    </nav>
+    <!-- Tela Principal -->
+    <div id="mainScreen" class="screen">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-chart-line"></i>
+                <span>Sistema de Apostas</span>
+            </div>
+            <div class="nav-user">
+                <span id="userName">Usuário</span>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </nav>
 
-    <div class="main-content">
-      <!-- Dashboard -->
-      <div class="dashboard">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-coins"></i>
+
+        <div class="main-content">
+            <!-- Dashboard -->
+            <div class="dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalInvestido">R$ 0,00</h3>
+                            <p>Total Investido</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalRetorno">R$ 0,00</h3>
+                            <p>Retorno Líquido</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalPrevisto">R$ 0,00</h3>
+                            <p>Total Previsto</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="quantidadeApostas">0</h3>
+                            <p>Total de Apostas</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-info">
-              <h3 id="totalInvestido">R$ 0,00</h3>
-              <p>Total Investido</p>
+
+            <!-- Seção de Apostas -->
+            <div class="apostas-section">
+                <div class="section-header">
+                    <h2>Minhas Apostas</h2>
+                    <button onclick="showAddForm()" class="btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Nova Aposta
+                    </button>
+                </div>
+
+                <!-- Formulário de Nova Aposta -->
+                <div id="addForm" class="form-card hidden">
+                    <h3>Nova Aposta</h3>
+                    <form id="apostaForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data">Data</label>
+                                <input type="date" id="data" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="entrada">Entrada (R$)</label>
+                                <input type="number" id="entrada" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="odd">Odd</label>
+                                <input type="number" id="odd" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="valorFinal">Valor Final (R$)</label>
+                                <input type="number" id="valorFinal" step="0.01" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Previsto: <span id="totalPrevistoCalc">R$ 0,00</span></label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" onclick="hideAddForm()" class="btn-secondary">Cancelar</button>
+                            <button type="submit" class="btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Lista de Apostas -->
+                <div class="apostas-list">
+                    <div id="apostasContainer">
+                        <!-- Apostas serão carregadas aqui -->
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="stat-info">
-              <h3 id="totalRetorno">R$ 0,00</h3>
-              <p>Retorno Líquido</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <div class="stat-info">
-              <h3 id="totalPrevisto">R$ 0,00</h3>
-              <p>Total Previsto</p>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">
-              <i class="fas fa-list"></i>
-            </div>
-            <div class="stat-info">
-              <h3 id="quantidadeApostas">0</h3>
-              <p>Total de Apostas</p>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <!-- Seção de Apostas -->
-      <div class="apostas-section">
-        <div class="section-header">
-          <h2>Minhas Apostas</h2>
-          <button onclick="showAddForm()" class="btn-primary">
-            <i class="fas fa-plus"></i>
-            Nova Aposta
-          </button>
-        </div>
-
-        <!-- Formulário de Nova Aposta -->
-        <div id="addForm" class="form-card hidden">
-          <h3>Nova Aposta</h3>
-          <form id="apostaForm">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="data">Data</label>
-                <input type="date" id="data" required />
-              </div>
-              <div class="form-group">
-                <label for="entrada">Entrada (R$)</label>
-                <input type="number" id="entrada" step="0.01" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="odd">Odd</label>
-                <input type="number" id="odd" step="0.01" required />
-              </div>
-              <div class="form-group">
-                <label for="valorFinal">Valor Final (R$)</label>
-                <input type="number" id="valorFinal" step="0.01" value="0" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Total Previsto: <span id="totalPrevistoCalc">R$ 0,00</span></label>
-            </div>
-            <div class="form-actions">
-              <button type="button" onclick="hideAddForm()" class="btn-secondary">Cancelar</button>
-              <button type="submit" class="btn-primary">Salvar</button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Lista de Apostas -->
-        <div class="apostas-list">
-          <div id="apostasContainer"><!-- Apostas serão carregadas aqui --></div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Modal de Edição (RECOLOCADO) -->
-  <div id="editModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Editar Aposta</h3>
-        <button onclick="closeEditModal()" class="btn-close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <form id="editForm">
-        <input type="hidden" id="editId" />
-        <div class="form-row">
-          <div class="form-group">
-            <label for="editData">Data</label>
-            <input type="date" id="editData" required />
-          </div>
-          <div class="form-group">
-            <label for="editEntrada">Entrada (R$)</label>
-            <input type="number" id="editEntrada" step="0.01" required />
-          </div>
+    <!-- Modal de Edição -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Aposta</h3>
+                <button onclick="closeEditModal()" class="btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editData">Data</label>
+                        <input type="date" id="editData" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEntrada">Entrada (R$)</label>
+                        <input type="number" id="editEntrada" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editOdd">Odd</label>
+                        <input type="number" id="editOdd" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editValorFinal">Valor Final (R$)</label>
+                        <input type="number" id="editValorFinal" step="0.01">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Previsto: <span id="editTotalPrevisto">R$ 0,00</span></label>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeEditModal()" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="editOdd">Odd</label>
-            <input type="number" id="editOdd" step="0.01" required />
-          </div>
-          <div class="form-group">
-            <label for="editValorFinal">Valor Final (R$)</label>
-            <input type="number" id="editValorFinal" step="0.01" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Total Previsto: <span id="editTotalPrevisto">R$ 0,00</span></label>
-        </div>
-        <div class="form-actions">
-          <button type="button" onclick="closeEditModal()" class="btn-secondary">Cancelar</button>
-          <button type="submit" class="btn-primary">Salvar</button>
-        </div>
-      </form>
     </div>
-  </div>
 
-  <!-- Toast global -->
-  <div id="toast" class="toast hidden">
-    <span id="toast-text"></span>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-text"></span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
