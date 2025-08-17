@@ -393,3 +393,9 @@ function calculateEditTotalPrevisto() {
   const total = entrada * odd;
   document.getElementById('editTotalPrevisto').textContent = formatCurrency(total);
 }
+
+// Teste simples para verificar se o proxy do Vercel → Render está funcionando
+fetch('/api/health')
+  .then(r => r.json())
+  .then(data => console.log("Resposta do backend:", data))
+  .catch(err => console.error("Erro ao acessar /api/health:", err));
