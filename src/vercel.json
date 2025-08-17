@@ -1,5 +1,6 @@
 {
+  "version": 2,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://SEU-BACKEND-NA-RENDER.onrender.com/api/$1" }
+    { "source": "/api/(.*)", "destination": "https://sistema-aposta.onrender.com/api/$1" }
   ]
 }
