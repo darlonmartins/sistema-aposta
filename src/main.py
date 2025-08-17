@@ -55,9 +55,10 @@ if USE_CORS:
     CORS(app, resources={r"/api/*": {"origins": os.getenv("CORS_ORIGINS", "*")}})
 
 # Healthcheck simples
-@app.get("/health")
-def health():
+@app.get("/api/health")
+def api_health():
     return {"status": "ok"}, 200
+
 
 # Servir frontend estático
 @app.route('/', defaults={'path': ''})
